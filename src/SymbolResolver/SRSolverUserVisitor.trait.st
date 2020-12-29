@@ -140,6 +140,11 @@ SRSolverUserVisitor >> solver [
 ]
 
 { #category : #accessing }
+SRSolverUserVisitor >> solver: aSolver [
+	solver := aSolver
+]
+
+{ #category : #accessing }
 SRSolverUserVisitor >> topScopeReachableEntities [
 	^ self solver topScopeReachableEntities
 ]
