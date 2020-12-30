@@ -58,11 +58,6 @@ SRSolverUserVisitor >> currentEntity [
 	^ self solver currentEntity
 ]
 
-{ #category : #accessing }
-SRSolverUserVisitor >> currentEntity: anEntity [
-	^ self solver pushScope: (SREntityScope currentEntity: anEntity)
-]
-
 { #category : #alias }
 SRSolverUserVisitor >> defineAliasInCurrentScope: anAlias for: aBlockClosure [
 	^ self solver defineAliasInCurrentScope: anAlias for: aBlockClosure
@@ -151,15 +146,9 @@ SRSolverUserVisitor >> topScopeReachableEntities [
 
 { #category : #scope }
 SRSolverUserVisitor >> useCurrentEntity: anEntity during: aBlock [
-	"Here we are not testing that we remove the right scope but if it's not the case, it's probably a bug"
-
-	| entityScope |
-	entityScope := self currentEntity: anEntity.
-	aBlock value.
-	"This assert is to check that the good scope is poped"
-	self assert: self solver topScope = entityScope.
-	self popScope.
-	^ anEntity
+	self useScope: (SREntityScope currentEntity: anEntity) during: aBlock.
+	"backward compatibility with old return"
+	^anEntity
 ]
 
 { #category : #scope }
@@ -169,4 +158,16 @@ SRSolverUserVisitor >> useEntityNamed: aName ofType: aType during: aBlock [
 			((self model entityStorage selectAllWithType: aType)
 				detect: [ :entity | entity name = aName ])
 		during: aBlock
+]
+
+{ #category : #scope }
+SRSolverUserVisitor >> useScope: aScope during: aBlock [
+	| result |
+	self solver pushScope: aScope.
+	[ result := aBlock value]
+	ensure: [
+		"This assert is to check that the good scope is poped"
+		self assert: self solver topScope = aScope.
+		self popScope ].
+	^ result
 ]

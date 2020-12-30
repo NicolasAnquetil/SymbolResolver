@@ -1,8 +1,7 @@
 "
-I am a scope based on one entity.
-My reachable entities are the ones owned by my entity.
-
-But i will be ignored concerning current entity
+I am a scope based on one entity (either a Famix or an IR entity).
+My reachable entities are the ones reachable by my entity.
+My entity can be the 'current' one (basically meaning it can make references to identifiers) or not
 "
 Class {
 	#name : #SREntityScope,
