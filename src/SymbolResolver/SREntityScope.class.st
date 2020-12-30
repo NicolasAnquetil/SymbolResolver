@@ -1,5 +1,8 @@
 "
-I am a scope that contains one entity. I will return all the reachable entities from the entity i contain if i am asked to. But i will be ignored concerning current entity
+I am a scope based on one entity.
+My reachable entities are the ones owned by my entity.
+
+But i will be ignored concerning current entity
 "
 Class {
 	#name : #SREntityScope,

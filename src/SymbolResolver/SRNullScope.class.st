@@ -1,3 +1,6 @@
+"
+NUllObject pattern for Scopes
+"
 Class {
 	#name : #SRNullScope,
 	#superclass : #SRScope,

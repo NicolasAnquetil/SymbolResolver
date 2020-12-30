@@ -1,8 +1,10 @@
 "
-I am a scope that provides all entities of a kind in a model
+I am a scope that provides all entities of a givewn Famix type in a model
+For example:
+  `SRFamixTypeScope new entityType: FamixPWBFunction`
 "
 Class {
-	#name : #SRModelBasedScope,
+	#name : #SRFamixTypeScope,
 	#superclass : #SRScope,
 	#instVars : [
 		'model',
@@ -12,34 +14,34 @@ Class {
 }
 
 { #category : #testing }
-SRModelBasedScope >> canContainsEntitiesOfType: aType [
+SRFamixTypeScope >> canContainsEntitiesOfType: aType [
 	^ aType isNil
 		or:
 			[ aType = self entityType or: [ aType inheritsFrom: self entityType ] ]
 ]
 
 { #category : #accessing }
-SRModelBasedScope >> entityType [
+SRFamixTypeScope >> entityType [
 	^ entityType
 ]
 
 { #category : #accessing }
-SRModelBasedScope >> entityType: anObject [
+SRFamixTypeScope >> entityType: anObject [
 	entityType := anObject
 ]
 
 { #category : #accessing }
-SRModelBasedScope >> model [
+SRFamixTypeScope >> model [
 	^ model
 ]
 
 { #category : #accessing }
-SRModelBasedScope >> model: anObject [
+SRFamixTypeScope >> model: anObject [
 	model := anObject
 ]
 
 { #category : #accessing }
-SRModelBasedScope >> printOn: aStream [
+SRFamixTypeScope >> printOn: aStream [
 	super printOn: aStream.
 	aStream << $(.
 	self model printOn: aStream.
@@ -49,6 +51,6 @@ SRModelBasedScope >> printOn: aStream [
 ]
 
 { #category : #accessing }
-SRModelBasedScope >> reachableEntitiesOwned [
+SRFamixTypeScope >> reachableEntitiesOwned [
 	^ self model entityStorage selectAllWithType: self entityType
 ]

@@ -1,3 +1,12 @@
+"
+A scope contains (reachable) entities
+
+- reachableEntities
+- reachableEntitiesOwned
+- canContainsEntitiesOfType:
+
+Note: aliases don't seem to be used anymore
+"
 Class {
 	#name : #SRScope,
 	#superclass : #Object,
@@ -34,7 +43,7 @@ SRScope >> canContainsEntitiesOfType: aClass [
 
 { #category : #helpers }
 SRScope >> createReferenceEntityFrom: aFmxEntity [ 
-	"I am a convenient function that do nothing because an identifier pointed this scope (because of an aliasing)"
+	"I am a convenient function that does nothing because an identifier pointed this scope (because of an aliasing)"
 ]
 
 { #category : #iterator }

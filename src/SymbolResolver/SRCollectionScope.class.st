@@ -1,5 +1,6 @@
 "
-I am a scope that contains and returns all the reachable entities. I am ignored considering the current entity level.
+I am a scope defined by a collection of all its reachable entities.
+I am ignored considering the current entity level.
 "
 Class {
 	#name : #SRCollectionScope,

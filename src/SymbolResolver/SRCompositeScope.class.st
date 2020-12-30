@@ -1,3 +1,7 @@
+"
+I am a scope composed of a collection of scopes
+i.e. my reachable entities are the union of my scopes' reachable entities
+"
 Class {
 	#name : #SRCompositeScope,
 	#superclass : #SRScope,

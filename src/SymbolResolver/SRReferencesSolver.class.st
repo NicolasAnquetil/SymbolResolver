@@ -75,7 +75,7 @@ SRReferencesSolver >> popScope [
 SRReferencesSolver >> pushAsScopeAll: aType ofModel: aModel [
 	self
 		pushScope:
-			(SRModelBasedScope new
+			(SRFamixTypeScope new
 				model: aModel;
 				entityType: aType;
 				yourself)
