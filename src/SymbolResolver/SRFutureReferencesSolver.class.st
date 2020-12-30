@@ -1,5 +1,5 @@
 "
-I am a reference solver that does not directly resolve stuff but store all the resolution it will have to do and then resolve everything when #resolveUnresolvedReferences is called
+I am a reference solver that does not directly resolve stuff but stores all the resolutions it will have to do and then resolve everything when #resolveUnresolvedReferences is called
 "
 Class {
 	#name : #SRFutureReferencesSolver,
@@ -10,7 +10,7 @@ Class {
 	#category : #'SymbolResolver-Solver'
 }
 
-{ #category : #accessing }
+{ #category : #initialization }
 SRFutureReferencesSolver >> initialize [ 
 	super initialize.
 	self toResolve: OrderedCollection new
@@ -33,6 +33,12 @@ SRFutureReferencesSolver >> resolveImmediately: aChainOfIdentifiers [
 
 { #category : #resolution }
 SRFutureReferencesSolver >> resolveUnresolvedReferences [
+	self toResolve
+		do: [ :each | each resolve ]
+]
+
+{ #category : #resolution }
+SRFutureReferencesSolver >> resolveUnresolvedReferencesWithProgress [
 	self toResolve
 		do: [ :each | each resolve ]
 		displayingProgress: 'References resolution'

@@ -1,5 +1,10 @@
 "
-I represent a reference that will be resolved in the future. I contain everything required for that (scopes, identifiers, actions)
+I represent a reference that will be resolved in the future.
+
+I contain everything required for that:
+- identifier to look for (SRResolvable)
+- scopes where to look for (SRScope)
+- actions (in the SRResolvable) to perform when I am resolved or if I cannot be resolved
 "
 Class {
 	#name : #SRReferenceToResolve,
@@ -57,21 +62,12 @@ SRReferenceToResolve >> replacementForUnresolvedIdentifier [
 
 { #category : #resolution }
 SRReferenceToResolve >> resolve [
-	"self decomposeIdentifier."
-
 	self scopes
 		do: [ :aScope | 
-			[ | tmp |
-			tmp := self resolve: identifiers inScope: aScope.
-			^ tmp ]
+			[ ^ identifiers resolveInScope: aScope currentEntity: self currentEntity  ]
 				on: NotFound
 				do: [ "do nothing to try superior scope" ] ].
 	^ self replacementForUnresolvedIdentifier
-]
-
-{ #category : #accessing }
-SRReferenceToResolve >> resolve: aChainOfIdentifiers inScope: aScope [
-	^ aChainOfIdentifiers resolveInScope: aScope currentEntity: self currentEntity 
 ]
 
 { #category : #accessing }

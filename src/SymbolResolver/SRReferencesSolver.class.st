@@ -71,7 +71,7 @@ SRReferencesSolver >> popScope [
 	^ self copyScopes pop
 ]
 
-{ #category : #push }
+{ #category : #'scopes management' }
 SRReferencesSolver >> pushAsScopeAll: aType ofModel: aModel [
 	self
 		pushScope:
@@ -107,9 +107,9 @@ SRReferencesSolver >> reachableEntitiesFor: aScope detect: aBlockClosure ifFound
 	NotFound signal
 ]
 
-{ #category : #removing }
-SRReferencesSolver >> removeScope: aPSQLScope [
-	self copyScopes remove: aPSQLScope
+{ #category : #'scopes management' }
+SRReferencesSolver >> removeScope: aScope [
+	self copyScopes remove: aScope
 ]
 
 { #category : #factory }
@@ -125,18 +125,13 @@ SRReferencesSolver >> resolve: aChainOfIdentifiers [
 
 	self scopes
 		do: [ :aScope | 
-			[ ^ self resolve: aChainOfIdentifiers inScope: aScope ]
+			[ ^ aChainOfIdentifiers resolveInScope: aScope currentEntity: self currentEntity ]
 				on: NotFound
 				do: [ "do nothing to try superior scope" ] ].
 	aChainOfIdentifiers hasReplacementStrategy
 		ifTrue: [ aChainOfIdentifiers applyReplacementStrategyWithCurrentEntity: self currentEntity.
 			^ aChainOfIdentifiers triggerFoundActionWithCurrentEntity: self currentEntity ]
 		ifFalse: [ SRReferencesNotFound signalIdentifiers: aChainOfIdentifiers ]
-]
-
-{ #category : #resolution }
-SRReferencesSolver >> resolve: aChainOfIdentifiers inScope: aScope [
-	^ aChainOfIdentifiers resolveInScope: aScope currentEntity: self currentEntity 
 ]
 
 { #category : #accessing }
