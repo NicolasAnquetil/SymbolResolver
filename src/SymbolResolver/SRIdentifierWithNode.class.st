@@ -70,7 +70,7 @@ SRIdentifierWithNode >> resolveInScope: aScope currentEntity: currentEntity [
 				foundActionFromPreviousInChain: self;
 				resolveInScope: scope
 					currentEntity: currentEntity ]
-			ifTrue: [nil] ]
+			ifTrue: [ self flag: 'should trigger not found action?'. nil ] ]
 		ifTrue: [ self triggerFoundActionWithCurrentEntity: currentEntity.
 			^ self entity ]
 ]

@@ -1,5 +1,10 @@
 "
-I am a class that can solve referencies and is able to give you the current entity for your visit
+I am a class that can solve references
+
+I also handle the current entity visited, which is the one making the references.
+Current entity is found by going up the scope stack and finding the first scope which has a #currentEntity
+
+Note: should be renamed #referencingEntity ?
 "
 Class {
 	#name : #SRReferencesSolver,
@@ -23,6 +28,7 @@ SRReferencesSolver >> createScopeManager [
 
 { #category : #accessing }
 SRReferencesSolver >> currentEntity [
+	"Finds the innermost scope that has a #currentEntity (the one making a reference to a Resolvable)"
 	^ (self scopes
 		detect: [:e | e hasCurrentEntity]
 		ifNone: [ SRNoCurrentEntityAvailable signalReferencesResolver: self ]) currentEntity

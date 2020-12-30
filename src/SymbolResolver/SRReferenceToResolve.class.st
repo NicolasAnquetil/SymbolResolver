@@ -5,6 +5,8 @@ I contain everything required for that:
 - identifier to look for (SRResolvable)
 - scopes where to look for (SRScope)
 - actions (in the SRResolvable) to perform when I am resolved or if I cannot be resolved
+
+And I know the #currentEntity that references me
 "
 Class {
 	#name : #SRReferenceToResolve,
@@ -26,6 +28,7 @@ SRReferenceToResolve class >> newFromScopes: aCollectionOfScopes identifiers: aS
 
 { #category : #accessing }
 SRReferenceToResolve >> currentEntity [
+	"returns the entity making a reference to self"
 	^ (self scopes
 		detect: #hasCurrentEntity
 		ifNone: [ SRNoCurrentEntityAvailable signalReferencesResolver: self ])
