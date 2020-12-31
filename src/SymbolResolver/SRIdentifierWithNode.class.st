@@ -55,6 +55,7 @@ SRIdentifierWithNode >> foundActionFromPreviousInChain: aSRIdentifierWithNode [
 SRIdentifierWithNode >> resolveInScope: aScope currentEntity: currentEntity [
 	currentEntity isNullPatternObject
 		ifTrue: [ ^ currentEntity ].
+
 	self
 		entity:
 			(aScope

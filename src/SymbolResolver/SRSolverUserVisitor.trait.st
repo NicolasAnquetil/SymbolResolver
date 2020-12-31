@@ -105,6 +105,11 @@ SRSolverUserVisitor >> pushEntityAsScope: anEntity [
 	self solver pushEntityAsScope: anEntity
 ]
 
+{ #category : #scope }
+SRSolverUserVisitor >> pushIRModelAsScope: aDictionnary [
+	self solver pushIRModelAsScope: aDictionnary
+]
+
 { #category : #factory }
 SRSolverUserVisitor >> resolvable: aResolvable [
 	^ self solver resolvable: aResolvable

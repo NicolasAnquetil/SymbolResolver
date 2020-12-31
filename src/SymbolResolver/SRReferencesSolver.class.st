@@ -98,6 +98,11 @@ SRReferencesSolver >> pushEntityAsScope: anEntity [
 ]
 
 { #category : #'scopes management' }
+SRReferencesSolver >> pushIRModelAsScope: aDictionnary [
+	self pushScope: (SRIRModelScope model: aDictionnary)
+]
+
+{ #category : #'scopes management' }
 SRReferencesSolver >> pushScope: aScope [
 	^ self copyScopes push: aScope
 ]
