@@ -2,7 +2,7 @@ Class {
 	#name : #SRIRModelScope,
 	#superclass : #SRScope,
 	#instVars : [
-		'dictionnary'
+		'irModel'
 	],
 	#category : #'SymbolResolver-Scopes'
 }
@@ -16,10 +16,10 @@ SRIRModelScope class >> model: aDictionnary [
 
 { #category : #accessing }
 SRIRModelScope >> model: aDictionnary [
-	dictionnary := aDictionnary 
+	irModel := aDictionnary 
 ]
 
 { #category : #accessing }
 SRIRModelScope >> reachableEntitiesOwned [
-	^ dictionnary values flatCollect: [ :irEntities | irEntities select: [ :ir | ir owner isNil ] ]
+	^ irModel reachableEntitiesOwned
 ]
