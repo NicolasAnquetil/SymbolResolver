@@ -62,7 +62,7 @@ SRResolvable >> checkKindOfEntity: anEntity [
 	self expectedKind ifNil: [ ^ true ].
 	^ self expectedKind isCollection
 		ifTrue: [ self expectedKind
-				anySatisfy: [ :expectedPossibility | anEntity isKindOf: expectedPossibility ] ]
+				anySatisfy: [ :expectedPossibility | anEntity hasMatchingType: expectedPossibility ] ]
 		ifFalse: [ anEntity isKindOf: self expectedKind ]
 ]
 
