@@ -23,25 +23,28 @@ SRReferencesSolverTest >> testCreateScopeManager [
 
 { #category : #tests }
 SRReferencesSolverTest >> testCurrentEntity [
-	| currentEntity currentEntity2 |
+	| mockEntity |
+	mockEntity := Mock new.
+	mockEntity stub asSREntityScope
+		willReturn: (SREntityScope new
+			entity: mockEntity ;
+			isCurrentEntity: true ;
+			yourself).
+
 	self should: [ referencesSolver currentEntity ] raise: SRNoCurrentEntityAvailable.
-	
-	currentEntity := Object new.
-	referencesSolver pushScope: (SREntityScope currentEntity: currentEntity).
-	self assert: referencesSolver currentEntity equals: currentEntity.
-	
-	referencesSolver pushScope: (SREntityScope entity: Object new).
-	self assert: referencesSolver currentEntity equals: currentEntity.
+
+	referencesSolver pushScope: (SREntityScope new
+			entity: (Object new) ;
+			isCurrentEntity: false ;
+			yourself).
+	self should: [ referencesSolver currentEntity ] raise: SRNoCurrentEntityAvailable.
+			
+	referencesSolver pushScope: (SREntityScope currentEntity: mockEntity).
+	self assert: referencesSolver currentEntity equals: mockEntity.
 	
 	referencesSolver pushScope: (SRCollectionScope reachableEntities: { Object new }).
-	self assert: referencesSolver currentEntity equals: currentEntity.
-	
-	currentEntity2 := Object new.
-	referencesSolver pushScope: (SREntityScope currentEntity: currentEntity2).
-	self assert: referencesSolver currentEntity equals: currentEntity2.
-	
-	referencesSolver popScope.
-	self assert: referencesSolver currentEntity equals: currentEntity.
+	self assert: referencesSolver currentEntity equals: mockEntity.
+
 ]
 
 { #category : #tests }
@@ -103,13 +106,18 @@ SRReferencesSolverTest >> testPushEntitiesAsScope [
 
 { #category : #tests }
 SRReferencesSolverTest >> testPushEntityAsScope [
-	| entity |
-	entity := Object new.
+	| mockEntity |
+	mockEntity := Mock new.
+	mockEntity stub asSREntityScope
+		willReturn: (SREntityScope new
+			entity: mockEntity ;
+			isCurrentEntity: true ;
+			yourself).
 	
-	referencesSolver pushEntityAsScope: entity.
+	referencesSolver pushEntityAsScope: mockEntity.
 	
 	self assert: referencesSolver scopes first class equals: SREntityScope.
-	self assert: referencesSolver scopes first entity equals: entity.
+	self assert: referencesSolver scopes first entity equals: mockEntity.
 ]
 
 { #category : #tests }

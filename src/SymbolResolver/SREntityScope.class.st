@@ -40,6 +40,7 @@ SREntityScope >> entity [
 
 { #category : #accessing }
 SREntityScope >> entity: anObject [
+1haltIf: [ anObject class = PWBIRValueHolder ].
 	entity := anObject
 ]
 
