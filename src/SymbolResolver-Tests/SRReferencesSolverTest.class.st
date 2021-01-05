@@ -67,21 +67,6 @@ SRReferencesSolverTest >> testEnsureScopesAreCopied [
 ]
 
 { #category : #tests }
-SRReferencesSolverTest >> testIRModelScope [
-	| irModel |
-	irModel := PWBIRModel new.
-	irModel createIR: PWBIRType named: 'typ1' owner: nil.
-	irModel createIR: PWBIRType named: 'typ2' owner: #anything.
-
-	referencesSolver pushIRModelAsScope: irModel.
-
-	self should: [ referencesSolver currentEntity ] raise: SRNoCurrentEntityAvailable.
-	self assert: referencesSolver topScopeReachableEntities size equals: 2.
-	self assert: (referencesSolver topScopeReachableEntities anyOne name beginsWith: 'typ')
-
-]
-
-{ #category : #tests }
 SRReferencesSolverTest >> testPopScope [
 	| sizeBefore scope |
 	sizeBefore := referencesSolver scopes size.
