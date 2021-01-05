@@ -13,7 +13,7 @@ Class {
 
 { #category : #'instance creation' }
 SRInvocationWithNode class >> identifier: anIdentifier expectedKind: aKind node: aNode arguments: aCollectionOfArguments [
-	^ (self identifier: anIdentifier node: aNode)
+	^ (self name: anIdentifier node: aNode)
 		expectedKind: aKind;
 		arguments: aCollectionOfArguments;
 		yourself

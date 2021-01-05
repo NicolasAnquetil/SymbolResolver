@@ -32,7 +32,7 @@ SRResolvableTest >> setUp [
 { #category : #tests }
 SRResolvableTest >> testResolveConsiderCase [
 	| resolver |
-	resolver := (SRIdentifierWithNode identifier: 'AVariable1' node: nil)
+	resolver := (SRIdentifierWithNode name: 'AVariable1' node: nil)
 		isCaseSensitive: true;
 		foundAction: [ :identifier :currentEntity |  ];
 		yourself.
@@ -44,7 +44,7 @@ SRResolvableTest >> testResolveConsiderCase [
 { #category : #tests }
 SRResolvableTest >> testResolveIgnoreCase [
 	| resolver |
-	resolver := (SRIdentifierWithNode identifier: 'AVariable1' node: nil)
+	resolver := (SRIdentifierWithNode name: 'AVariable1' node: nil)
 		isCaseSensitive: false ;
 		foundAction: [ :identifier :currentEntity |  ];
 		yourself.
@@ -55,7 +55,7 @@ SRResolvableTest >> testResolveIgnoreCase [
 { #category : #tests }
 SRResolvableTest >> testResolveSameCase [
 	| resolver |
-	resolver := (SRIdentifierWithNode identifier: 'aVariable1' node: nil)
+	resolver := (SRIdentifierWithNode name: 'aVariable1' node: nil)
 		isCaseSensitive: false ;
 		foundAction: [ :identifier :currentEntity | ];
 		yourself.

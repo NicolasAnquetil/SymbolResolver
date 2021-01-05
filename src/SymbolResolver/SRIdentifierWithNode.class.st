@@ -13,7 +13,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 SRIdentifierWithNode class >> identifier: anIdentifier expectedKind: aKind node: aNode arrayWithSize: aString [
-	^ (self identifier: anIdentifier node: aNode)
+	^ (self name: anIdentifier node: aNode)
 		expectedKind: aKind;
 		arrayDefinition: aString;
 		yourself

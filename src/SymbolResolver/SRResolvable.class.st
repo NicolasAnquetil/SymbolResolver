@@ -19,26 +19,26 @@ Class {
 }
 
 { #category : #'instance creation' }
-SRResolvable class >> identifier: anIdentifier expectedKind: aKind node: aNode [ 
-	^ (self identifier: anIdentifier node: aNode)
+SRResolvable class >> name: anIdentifier expectedKind: aKind node: aNode [ 
+	^ (self name: anIdentifier node: aNode)
 		expectedKind: aKind;
 		yourself
 ]
 
 { #category : #'instance creation' }
-SRResolvable class >> identifier: aStringIdentifier node: aPSQLASTIdentifier [
+SRResolvable class >> name: aString node: aNode [
 	^ self new
-		identifier: aStringIdentifier;
-		node: aPSQLASTIdentifier;
+		identifier: aString ;
+		node: aNode ;
 		yourself
 ]
 
 { #category : #'instance creation' }
-SRResolvable class >> identifier: aString node: anIdentifier next: aNextIdentifierWithNode [
+SRResolvable class >> name: aString node: aNode next: aNextIdentifierWithNode [
 	^ self new
-		identifier: aString;
-		node: anIdentifier;
-		next: aNextIdentifierWithNode;
+		identifier: aString ;
+		node: aNode ;
+		next: aNextIdentifierWithNode ;
 		yourself
 ]
 
