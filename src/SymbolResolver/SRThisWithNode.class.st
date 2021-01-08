@@ -14,11 +14,17 @@ SRThisWithNode class >> node: aNode [
 ]
 
 { #category : #accessing }
-SRThisWithNode class >> node: aNode validationAsTypeBlock: validationAsTypeBlock [
+SRThisWithNode class >> node: aNode validationBlock: validationAsTypeBlock [
 	^ self new
 		node: aNode;
-		validationAsTypeBlock: validationAsTypeBlock;
+		validationBlock: validationAsTypeBlock;
 		yourself
+]
+
+{ #category : #hooks }
+SRThisWithNode >> applyReplacementStrategyWithCurrentEntity: aCurrentEntity [
+	"there should always be a #currentEntity to which 'this' refers"
+	self shouldNotImplement
 ]
 
 { #category : #accessing }
@@ -31,6 +37,12 @@ SRThisWithNode >> entity: anObject [
 	entity := anObject
 ]
 
+{ #category : #access }
+SRThisWithNode >> foundActionFromPreviousInChain: aSRIdentifierWithNode [
+	" 'this' cannot be second in a chain of identifiers"
+	self shouldNotImplement
+]
+
 { #category : #printing }
 SRThisWithNode >> printIdentifierPath: aStream [
 	aStream nextPutAll: 'this'
@@ -38,7 +50,7 @@ SRThisWithNode >> printIdentifierPath: aStream [
 
 { #category : #resolution }
 SRThisWithNode >> resolveInScope: aSRScope currentEntity: currentEntity [
-	(aSRScope isEntityScope and: [ self validateAsType: aSRScope entity ])
+	(aSRScope isEntityScope and: [ self validateThisEntity: aSRScope entity ])
 		ifFalse: [ NotFound signal ]
 		ifTrue: [ self entity: aSRScope entity.
 			self triggerFoundActionWithCurrentEntity: currentEntity.
@@ -46,16 +58,16 @@ SRThisWithNode >> resolveInScope: aSRScope currentEntity: currentEntity [
 ]
 
 { #category : #validation }
-SRThisWithNode >> validateAsType: aFamixEntity [
-	^ self validationAsTypeBlock value: aFamixEntity
+SRThisWithNode >> validateThisEntity: aFamixEntity [
+	^ self validationBlock value: aFamixEntity
 ]
 
 { #category : #accessing }
-SRThisWithNode >> validationAsTypeBlock [
+SRThisWithNode >> validationBlock [
 	^ validationAsTypeBlock
 ]
 
 { #category : #accessing }
-SRThisWithNode >> validationAsTypeBlock: anObject [
+SRThisWithNode >> validationBlock: anObject [
 	validationAsTypeBlock := anObject
 ]
