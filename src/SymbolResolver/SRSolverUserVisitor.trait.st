@@ -10,49 +10,6 @@ Trait {
 	#category : #'SymbolResolver-Core'
 }
 
-{ #category : #'entities creation' }
-SRSolverUserVisitor >> create: aClass [
-	^ aClass new
-		mooseModel: self model;
-		yourself
-]
-
-{ #category : #'entities creation' }
-SRSolverUserVisitor >> create: aClass from: anASTNode [
-	| created |
-	created := self create: aClass.
-	created
-		sourceAnchor:
-			((self create: FamixPWBIndexedFileAnchor)
-				startPos: anASTNode startPosition;
-				fileName: (self file relativeTo: self model rootFolder) pathString;
-				endPos: anASTNode stopPosition;
-				yourself).
-	^ created
-]
-
-{ #category : #'entities creation' }
-SRSolverUserVisitor >> createEntity: aClass withAnchorFrom: anASTNode [
-	| created |
-	created := self createModelEntity: aClass.
-	created
-		sourceAnchor:
-			(FamixPWBIndexedFileAnchor new
-				startPos: anASTNode startPosition;
-				mooseModel: self model;
-				fileName: (self file relativeTo: self model rootFolder) pathString;
-				endPos: anASTNode stopPosition;
-				yourself).
-	^ created
-]
-
-{ #category : #'entities creation' }
-SRSolverUserVisitor >> createModelEntity: aClass [
-	^ aClass new
-		mooseModel: self model;
-		yourself
-]
-
 { #category : #accessing }
 SRSolverUserVisitor >> currentEntity [
 	^ self solver currentEntity
