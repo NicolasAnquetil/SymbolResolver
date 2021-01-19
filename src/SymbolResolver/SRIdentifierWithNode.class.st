@@ -62,16 +62,15 @@ SRIdentifierWithNode >> resolveInScope: aScope currentEntity: currentEntity [
 				detect: [ :anEntity | 
 					(self name: anEntity name isSameAs: self identifier)
 						and: [ self checkKindOfEntity: anEntity ] ]).
+	self triggerFoundActionWithCurrentEntity: currentEntity.
+
 	self isLast
 		ifFalse: [ | scope |
 			scope := SREntityScope entity: self entity.
 			scope isNullPatternObject
 			ifFalse: [
 			^ self next
-				foundActionFromPreviousInChain: self;
-				resolveInScope: scope
-					currentEntity: currentEntity ]
-			ifTrue: [ self flag: 'should trigger not found action?'. nil ] ]
-		ifTrue: [ self triggerFoundActionWithCurrentEntity: currentEntity.
-			^ self entity ]
+				resolveInScope: scope currentEntity: currentEntity ] ].
+	^self entity
+
 ]
