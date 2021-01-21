@@ -92,11 +92,6 @@ SRResolvable >> foundAction: anObject [
 	foundAction := anObject
 ]
 
-{ #category : #access }
-SRResolvable >> foundActionFromPreviousInChain: aSRIdentifierWithNode [
-	self subclassResponsibility
-]
-
 { #category : #testing }
 SRResolvable >> hasReplacementStrategy [
 	^ self notFoundReplacementEntity notNil

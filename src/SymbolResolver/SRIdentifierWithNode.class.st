@@ -46,11 +46,6 @@ SRIdentifierWithNode >> entity: anObject [
 	entity := anObject
 ]
 
-{ #category : #access }
-SRIdentifierWithNode >> foundActionFromPreviousInChain: aSRIdentifierWithNode [
-	foundAction := aSRIdentifierWithNode foundAction
-]
-
 { #category : #resolution }
 SRIdentifierWithNode >> resolveInScope: aScope currentEntity: currentEntity [
 	currentEntity isNullPatternObject

@@ -37,12 +37,6 @@ SRThisWithNode >> entity: anObject [
 	entity := anObject
 ]
 
-{ #category : #access }
-SRThisWithNode >> foundActionFromPreviousInChain: aSRIdentifierWithNode [
-	" 'this' cannot be second in a chain of identifiers"
-	self shouldNotImplement
-]
-
 { #category : #printing }
 SRThisWithNode >> printIdentifierPath: aStream [
 	aStream nextPutAll: 'this'
