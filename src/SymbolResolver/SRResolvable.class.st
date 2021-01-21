@@ -20,7 +20,6 @@ Class {
 
 { #category : #'instance creation' }
 SRResolvable class >> name: anIdentifier expectedKind: aKind node: aNode [ 
-1 haltIf: [ anIdentifier isKindOf: PWBAbstractAuxiliaryVisitor ].
 	^ (self name: anIdentifier node: aNode)
 		expectedKind: aKind;
 		yourself
