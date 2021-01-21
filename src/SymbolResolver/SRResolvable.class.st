@@ -207,9 +207,33 @@ SRResolvable >> printOn: aStream [
 	aStream nextPut: $)
 ]
 
+{ #category : #hooks }
+SRResolvable >> replacementWhenUnresolvedIn: currentEntity [
+	^self hasReplacementStrategy
+		ifTrue: [
+			self applyReplacementStrategyWithCurrentEntity: currentEntity.
+			^self triggerFoundActionWithCurrentEntity: currentEntity ]
+		ifFalse: [
+			SRReferencesNotFound signalIdentifiers: self ]
+]
+
 { #category : #printing }
 SRResolvable >> representationString [
 	^ String streamContents: [ :s | self printIdentifierPath: s ]
+]
+
+{ #category : #resolution }
+SRResolvable >> resolveChained: usedIdentifier usedIn: currentEntity definedIn: owningEntity [
+	"similar to SRReferenceToResolve >> resolve, but will olook only in one scope
+	 that is created on the fly"
+	| owningScope |
+	owningScope := SREntityScope entity: owningEntity.
+
+	owningScope isNullPatternObject
+	ifFalse: [
+		[ usedIdentifier resolveInScope: owningScope currentEntity: currentEntity  ]
+		on: NotFound
+		do: [ ^ usedIdentifier replacementWhenUnresolvedIn: currentEntity ] ]
 ]
 
 { #category : #resolution }

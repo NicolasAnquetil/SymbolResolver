@@ -55,12 +55,8 @@ SRReferenceToResolve >> printOn: aStream [
 
 { #category : #resolution }
 SRReferenceToResolve >> replacementForUnresolvedIdentifier [
-	identifiers hasReplacementStrategy
-		ifTrue: [ identifiers
-				applyReplacementStrategyWithCurrentEntity: self currentEntity.
-			^ identifiers
-				triggerFoundActionWithCurrentEntity: self currentEntity ]
-		ifFalse: [ SRReferencesNotFound signalIdentifiers: identifiers ]
+	^identifiers replacementWhenUnresolvedIn:  self currentEntity.
+
 ]
 
 { #category : #resolution }
