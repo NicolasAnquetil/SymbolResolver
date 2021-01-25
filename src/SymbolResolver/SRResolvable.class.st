@@ -92,6 +92,11 @@ SRResolvable >> foundAction: anObject [
 ]
 
 { #category : #testing }
+SRResolvable >> hasFoundAction [
+	^ self foundAction notNil
+]
+
+{ #category : #testing }
 SRResolvable >> hasReplacementStrategy [
 	^ self notFoundReplacementEntity notNil
 ]
@@ -204,9 +209,16 @@ SRResolvable >> printOn: aStream [
 { #category : #hooks }
 SRResolvable >> replacementWhenUnresolvedIn: currentEntity [
 	^self hasReplacementStrategy
-		ifTrue: [
+		ifTrue: [ | replacementEntity |
 			self applyReplacementStrategyWithCurrentEntity: currentEntity.
-			^self triggerFoundActionWithCurrentEntity: currentEntity ]
+			replacementEntity := self triggerFoundActionWithCurrentEntity: currentEntity.
+			self isLast
+			ifFalse: [
+				self
+					resolveChained: self next
+					usedIn: currentEntity
+					definedIn: self entity asSREntityScope
+			] ]
 		ifFalse: [
 			SRReferencesNotFound signalIdentifiers: self ]
 ]
@@ -217,12 +229,8 @@ SRResolvable >> representationString [
 ]
 
 { #category : #resolution }
-SRResolvable >> resolveChained: usedIdentifier usedIn: currentEntity definedIn: owningEntity [
-	"similar to SRReferenceToResolve >> resolve, but will olook only in one scope
-	 that is created on the fly"
-	| owningScope |
-	owningScope := SREntityScope entity: owningEntity.
-
+SRResolvable >> resolveChained: usedIdentifier usedIn: currentEntity definedIn: owningScope [
+	"similar to SRReferenceToResolve >> resolve, but will look only in one scope"
 	owningScope isNullPatternObject
 	ifFalse: [
 		[ usedIdentifier resolveInScope: owningScope currentEntity: currentEntity  ]
@@ -260,5 +268,8 @@ SRResolvable >> targetEntity [
 SRResolvable >> triggerFoundActionWithCurrentEntity: aCurrentEntity [
 	aCurrentEntity isNullPatternObject
 		ifTrue: [ ^ aCurrentEntity ].
-	^ self foundAction cull: self cull: aCurrentEntity
+	^self hasFoundAction
+		ifTrue: [ self foundAction cull: self cull: aCurrentEntity ]
+		ifFalse: [ self entity ]
+
 ]

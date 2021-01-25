@@ -36,6 +36,11 @@ SRScope >> aliases: anObject [
 	aliases := anObject
 ]
 
+{ #category : #converting }
+SRScope >> asSREntityScope [
+	^self
+]
+
 { #category : #testing }
 SRScope >> canContainsEntitiesOfType: aClass [ 
 	^ true

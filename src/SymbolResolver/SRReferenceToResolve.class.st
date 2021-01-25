@@ -55,7 +55,7 @@ SRReferenceToResolve >> printOn: aStream [
 
 { #category : #resolution }
 SRReferenceToResolve >> replacementForUnresolvedIdentifier [
-	^identifiers replacementWhenUnresolvedIn:  self currentEntity.
+	^identifiers replacementWhenUnresolvedIn: self currentEntity.
 
 ]
 

@@ -63,7 +63,7 @@ SRIdentifierWithNode >> resolveInScope: aScope currentEntity: currentEntity [
 		^self
 			resolveChained: self next
 			usedIn: currentEntity
-			definedIn: self entity ].
+			definedIn: self entity asSREntityScope  ].
 	^self entity
 
 ]
