@@ -4,3 +4,8 @@ Extension { #name : #Object }
 Object >> isNullPatternObject [
 	^ false
 ]
+
+{ #category : #'*SymbolResolver' }
+Object >> isResolvable [
+	^false
+]
