@@ -65,9 +65,14 @@ SRInvocationWithNode >> resolveInScope: aScope currentEntity: currentEntity [
 			| resolved |
 			self candidates: entities.
 			resolved := self triggerFoundActionWithCurrentEntity: currentEntity.
-			self isLast
-				ifTrue: [ ^ resolved ]
-				ifFalse: [ SRNotSupportedYetFunctionnality signal ] ]
+			^self isLast
+				ifTrue: [ resolved ]
+				ifFalse: [
+					self
+						resolveChained: self next
+						usedIn: currentEntity
+						definedIn: self entity asSREntityScope
+				] ]
 ]
 
 { #category : #resolution }
