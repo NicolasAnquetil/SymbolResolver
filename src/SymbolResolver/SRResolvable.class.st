@@ -232,6 +232,7 @@ SRResolvable >> representationString [
 SRResolvable >> resolveChained: usedIdentifier usedIn: currentEntity definedIn: owningScope [
 	"similar to SRReferenceToResolve >> resolve, but will look only in one scope"
 	owningScope isNullPatternObject
+	ifTrue: [ ^ usedIdentifier replacementWhenUnresolvedIn: currentEntity ]
 	ifFalse: [
 		[ usedIdentifier resolveInScope: owningScope currentEntity: currentEntity  ]
 		on: NotFound
