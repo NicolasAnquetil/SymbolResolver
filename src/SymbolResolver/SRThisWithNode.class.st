@@ -37,9 +37,9 @@ SRThisWithNode >> entity: anObject [
 	entity := anObject
 ]
 
-{ #category : #printing }
-SRThisWithNode >> printIdentifierPath: aStream [
-	aStream nextPutAll: 'this'
+{ #category : #accessing }
+SRThisWithNode >> identifier [ 
+	^'this'
 ]
 
 { #category : #resolution }
